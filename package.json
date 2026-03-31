@@ -1,0 +1,53 @@
+{
+  "name": "n8n-nodes-cashpilot",
+  "version": "0.1.0",
+  "description": "n8n community node for CashPilot — self-hosted passive income monitoring and container management",
+  "keywords": [
+    "n8n-community-node-package",
+    "cashpilot",
+    "passive-income",
+    "self-hosted",
+    "docker",
+    "bandwidth-sharing",
+    "earnings"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/GeiserX/n8n-nodes-cashpilot",
+  "author": {
+    "name": "GeiserX",
+    "email": "sergio@geiser.cloud"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GeiserX/n8n-nodes-cashpilot.git"
+  },
+  "engines": {
+    "node": ">=22.0"
+  },
+  "main": "dist/nodes/CashPilot/CashPilot.node.js",
+  "scripts": {
+    "build": "tsc && node build-icons.cjs",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/CashPilotApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/CashPilot/CashPilot.node.js",
+      "dist/nodes/CashPilot/CashPilotTrigger.node.js"
+    ]
+  },
+  "devDependencies": {
+    "n8n-workflow": "*",
+    "typescript": "~5.7.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
