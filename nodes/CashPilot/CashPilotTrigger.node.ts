@@ -134,21 +134,26 @@ export class CashPilotTrigger implements INodeType {
 						s.container_status !== 'running' && s.status !== 'running',
 				);
 
-				if (down.length === 0) {
+				const downSlugs = new Set(down.map((s) => s.slug as string));
+				const lastDownSlugs = new Set(
+					(staticData.lastDownSlugs as string[] | undefined) || [],
+				);
+
+				// Find newly-down services (in current set but not in previous)
+				const newlyDown = down.filter(
+					(s) => !lastDownSlugs.has(s.slug as string),
+				);
+
+				// Update stored set to match current state exactly
+				// (removes recovered services so they can trigger again later)
+				staticData.lastDownSlugs = [...downSlugs].sort();
+
+				if (newlyDown.length === 0) {
 					return null;
 				}
 
-				// Deduplicate: only fire for newly-down services
-				const downSlugs = down.map((s) => s.slug as string).sort();
-				const lastDownSlugs = (staticData.lastDownSlugs as string[] | undefined) || [];
-
-				if (JSON.stringify(downSlugs) === JSON.stringify(lastDownSlugs)) {
-					return null;
-				}
-
-				staticData.lastDownSlugs = downSlugs;
 				return [
-					down.map((s) => ({
+					newlyDown.map((s) => ({
 						json: s,
 					})),
 				];
@@ -189,26 +194,28 @@ export class CashPilotTrigger implements INodeType {
 					return cashout && cashout.eligible === true;
 				});
 
-				if (eligible.length === 0) {
+				const eligibleSlugs = new Set(
+					eligible.map((e) => e.platform as string),
+				);
+				const lastEligible = new Set(
+					(staticData.lastEligibleSlugs as string[] | undefined) || [],
+				);
+
+				// Find newly-eligible services (in current set but not in previous)
+				const newlyEligible = eligible.filter(
+					(e) => !lastEligible.has(e.platform as string),
+				);
+
+				// Update stored set to match current state exactly
+				// (removes no-longer-eligible services so they can trigger again later)
+				staticData.lastEligibleSlugs = [...eligibleSlugs].sort();
+
+				if (newlyEligible.length === 0) {
 					return null;
 				}
 
-				// Only fire for newly-eligible services
-				const eligibleSlugs = eligible
-					.map((e) => e.platform as string)
-					.sort();
-				const lastEligible =
-					(staticData.lastEligibleSlugs as string[] | undefined) || [];
-
-				if (
-					JSON.stringify(eligibleSlugs) === JSON.stringify(lastEligible)
-				) {
-					return null;
-				}
-
-				staticData.lastEligibleSlugs = eligibleSlugs;
 				return [
-					eligible.map((e) => ({
+					newlyEligible.map((e) => ({
 						json: e,
 					})),
 				];

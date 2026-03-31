@@ -306,6 +306,13 @@ export class CashPilot implements INodeType {
 						operation: ['deploy', 'start', 'stop', 'restart', 'remove', 'getLogs'],
 					},
 				},
+				routing: {
+					send: {
+						type: 'query',
+						property: 'worker_id',
+						value: '={{$parameter["workerId"] || undefined}}',
+					},
+				},
 			},
 			{
 				displayName: 'Lines',
@@ -316,6 +323,13 @@ export class CashPilot implements INodeType {
 				typeOptions: { minValue: 1, maxValue: 10000 },
 				displayOptions: {
 					show: { resource: ['service'], operation: ['getLogs'] },
+				},
+				routing: {
+					send: {
+						type: 'query',
+						property: 'lines',
+						value: '={{$parameter["lines"]}}',
+					},
 				},
 			},
 
