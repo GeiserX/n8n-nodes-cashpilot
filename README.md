@@ -62,6 +62,14 @@ Search for `n8n-nodes-cashpilot` in the **Community Nodes** panel inside n8n.
 
 ![CashPilot Node](https://raw.githubusercontent.com/GeiserX/n8n-nodes-cashpilot/main/docs/screenshot.png)
 
+## Other n8n Community Nodes by GeiserX
+
+- [n8n-nodes-genieacs](https://github.com/GeiserX/n8n-nodes-genieacs) — TR-069 device management
+- [n8n-nodes-lynxprompt](https://github.com/GeiserX/n8n-nodes-lynxprompt) — AI configuration blueprints
+- [n8n-nodes-pumperly](https://github.com/GeiserX/n8n-nodes-pumperly) — Fuel and EV charging prices
+- [n8n-nodes-telegram-archive](https://github.com/GeiserX/n8n-nodes-telegram-archive) — Telegram message archive
+- [n8n-nodes-way-cms](https://github.com/GeiserX/n8n-nodes-way-cms) — Web archive content management
+
 ## License
 
 [MIT](LICENSE)
