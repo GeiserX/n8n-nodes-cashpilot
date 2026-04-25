@@ -320,3 +320,55 @@ describe('poll — collectorError event', () => {
 		expect(result).toBeNull();
 	});
 });
+
+// ---------------------------------------------------------------------------
+// poll behaviour: unknown event (default branch)
+// ---------------------------------------------------------------------------
+describe('poll — unknown event', () => {
+	it('returns null for unrecognised event type', async () => {
+		const staticData: Record<string, any> = {};
+		const ctx = createMockContext({ event: 'unknownEvent' }, staticData, []);
+		const result = await trigger.poll.call(ctx as any);
+
+		expect(result).toBeNull();
+	});
+});
+
+// ---------------------------------------------------------------------------
+// poll behaviour: API error handling
+// ---------------------------------------------------------------------------
+describe('poll — API error handling', () => {
+	it('wraps Error instances in NodeApiError', async () => {
+		const staticData: Record<string, any> = {};
+		const errorCtx = {
+			getNodeParameter: (name: string) => ({ event: 'newEarnings' }[name]),
+			getWorkflowStaticData: () => staticData,
+			helpers: {
+				httpRequest: vi.fn().mockRejectedValue(new Error('Connection refused')),
+			},
+			getCredentials: vi
+				.fn()
+				.mockResolvedValue({ url: 'http://localhost:8000', apiKey: 'test' }),
+			getNode: vi.fn().mockReturnValue({ name: 'CashPilotTrigger' }),
+		};
+
+		await expect(trigger.poll.call(errorCtx as any)).rejects.toThrow();
+	});
+
+	it('wraps non-Error values in NodeApiError', async () => {
+		const staticData: Record<string, any> = {};
+		const errorCtx = {
+			getNodeParameter: (name: string) => ({ event: 'newEarnings' }[name]),
+			getWorkflowStaticData: () => staticData,
+			helpers: {
+				httpRequest: vi.fn().mockRejectedValue('string error'),
+			},
+			getCredentials: vi
+				.fn()
+				.mockResolvedValue({ url: 'http://localhost:8000', apiKey: 'test' }),
+			getNode: vi.fn().mockReturnValue({ name: 'CashPilotTrigger' }),
+		};
+
+		await expect(trigger.poll.call(errorCtx as any)).rejects.toThrow();
+	});
+});
