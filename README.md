@@ -2,6 +2,10 @@
   <img src="docs/images/banner.svg" alt="n8n-nodes-cashpilot banner" width="900"/>
 </p>
 
+<p align="center">
+  <a href="https://codecov.io/gh/GeiserX/n8n-nodes-cashpilot"><img src="https://codecov.io/gh/GeiserX/n8n-nodes-cashpilot/graph/badge.svg" alt="codecov"></a>
+</p>
+
 # n8n-nodes-cashpilot
 
 [n8n](https://n8n.io/) community node for **[CashPilot](https://github.com/GeiserX/CashPilot)** — a self-hosted passive income monitoring and container management dashboard.
