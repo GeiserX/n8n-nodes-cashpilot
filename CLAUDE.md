@@ -1,4 +1,4 @@
-# AGENTS.md — n8n-nodes-cashpilot
+# CLAUDE.md — n8n-nodes-cashpilot
 
 ## Project Overview
 
