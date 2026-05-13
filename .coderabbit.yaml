@@ -48,4 +48,3 @@ knowledge_base:
     enabled: true
     filePatterns:
       - "CLAUDE.md"
-      - "CLAUDE.md"
