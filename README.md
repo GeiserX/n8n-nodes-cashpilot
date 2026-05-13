@@ -18,13 +18,20 @@ Follow the [n8n community nodes installation guide](https://docs.n8n.io/integrat
 
 Search for `n8n-nodes-cashpilot` in the **Community Nodes** panel inside n8n.
 
-## Credentials
+## Setup
 
-1. Open your CashPilot instance and navigate to **Settings**.
-2. Copy the **API key**.
-3. In n8n, create a new **CashPilot API** credential with:
-   - **URL**: The base URL of your CashPilot instance (e.g. `http://192.168.1.100:8000`)
-   - **API Key**: The key you copied
+### CashPilot Server
+
+Ensure the `CASHPILOT_ADMIN_API_KEY` environment variable is set on your CashPilot instance. This is the **admin** key that grants full access to management operations (deploy, stop, restart, remove services).
+
+> **Important:** Do NOT use `CASHPILOT_API_KEY` (the fleet/worker key) — it only grants limited read access and cannot perform management operations.
+
+### n8n Credential
+
+1. In n8n, create a new **CashPilot API** credential with:
+   - **URL**: The base URL of your CashPilot instance (e.g. `http://192.168.1.100:8080`)
+   - **API Key**: The value of `CASHPILOT_ADMIN_API_KEY` from your CashPilot server
+2. The credential test will call `/api/earnings/summary` to verify connectivity and authentication.
 
 ## Supported Operations
 

@@ -21,7 +21,7 @@ describe('CashPilotApi Credentials', () => {
 		const urlProp = creds.properties.find((p) => p.name === 'url');
 		expect(urlProp).toBeDefined();
 		expect(urlProp!.type).toBe('string');
-		expect(urlProp!.default).toBe('http://localhost:8000');
+		expect(urlProp!.default).toBe('http://localhost:8080');
 		expect(urlProp!.required).toBe(true);
 	});
 
@@ -41,9 +41,9 @@ describe('CashPilotApi Credentials', () => {
 		expect(headers.Authorization).toContain('$credentials.apiKey');
 	});
 
-	it('has credential test request to /api/mode', () => {
+	it('has credential test request to /api/earnings/summary', () => {
 		expect(creds.test).toBeDefined();
-		expect(creds.test.request.url).toBe('/api/mode');
+		expect(creds.test.request.url).toBe('/api/earnings/summary');
 		expect(creds.test.request.method).toBe('GET');
 		expect(creds.test.request.baseURL).toBe('={{$credentials.url}}');
 	});

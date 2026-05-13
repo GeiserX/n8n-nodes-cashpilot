@@ -9,7 +9,7 @@ export class CashPilot implements INodeType {
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description:
-			'Manage passive income services, track earnings, and control containers via CashPilot',
+			'Manage passive income services, track earnings, and control containers via CashPilot. Requires the admin API key (CASHPILOT_ADMIN_API_KEY) for management operations (deploy, start, stop, restart, remove).',
 		defaults: { name: 'CashPilot' },
 		inputs: ['main'],
 		outputs: ['main'],
