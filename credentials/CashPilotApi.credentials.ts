@@ -15,8 +15,8 @@ export class CashPilotApi implements ICredentialType {
 			displayName: 'URL',
 			name: 'url',
 			type: 'string',
-			default: 'http://localhost:8000',
-			placeholder: 'http://localhost:8000',
+			default: 'http://localhost:8080',
+			placeholder: 'http://localhost:8080',
 			description: 'Base URL of the CashPilot instance (no trailing slash)',
 			required: true,
 		},
@@ -26,7 +26,8 @@ export class CashPilotApi implements ICredentialType {
 			type: 'string',
 			typeOptions: { password: true },
 			default: '',
-			description: 'API key for authenticating with CashPilot',
+			description:
+				'Admin API key (CASHPILOT_ADMIN_API_KEY from your CashPilot server — NOT the fleet/worker key)',
 			required: true,
 		},
 	];
@@ -43,7 +44,7 @@ export class CashPilotApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '={{$credentials.url}}',
-			url: '/api/mode',
+			url: '/api/earnings/summary',
 			method: 'GET',
 		},
 	};
